@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify 
+from flask import Flask, request, jsonify
 from processamento import processar_cliente
 
 app = Flask(__name__)
