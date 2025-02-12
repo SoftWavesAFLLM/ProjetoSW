@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify
-from processamento import processar_cliente
+from flask import Flask, request, jsonify 
+from softwaves.processamento import processar_cliente
 
 app = Flask(__name__)
 
