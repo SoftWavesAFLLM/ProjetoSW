@@ -6,7 +6,7 @@ def connect_banco(): #Função Base
             host="localhost",
             user="root",
             password="",
-            database="softwaves"
+            database="softwavesafllm"
         )
         return connection #Retorna a conexão dentro da variavel
     except mysql.connector.Error as err: #Em caso de erro gravo o erro da variavel[err]

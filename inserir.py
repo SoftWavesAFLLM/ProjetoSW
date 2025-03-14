@@ -1,19 +1,139 @@
 from conectar import connect_banco #Importação componente de conexão
 import mysql.connector
 
-def insert_cliente(dados): #Criação da função + parametros
+
+#--------------INICIO - Insert Maquina--------------
+
+def insert_maquina(dados): #Criação da função + parametros
     conn = connect_banco() #Variavel recebe obj da conexão
     if conn: #Verifico a variavel
         try:
             cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
-            sql = "INSERT INTO cliente (nome, cep, telefone, email, cpf) VALUES (%s, %s, %s, %s, %s)" #Criação do sql com parametros por posição
-            values = (dados['nome'], dados['cep'], dados['telefone'], dados['email'], dados['cpf']) #Valores a serem gravados
+            sql = "INSERT INTO maquinas (nome_maquina, localizacao, status_maquina, data_instalacao_maquina, fabricante) VALUES (%s, %s, %s, %s, %s)" #Criação do sql com parametros por posição
+            values = (dados['nome_maquina'], dados['localizacao'], dados['status_maquina'], dados['data_instalacao_maquina'], dados['fabricante']) #Valores a serem gravados
             print('Antes insert:', values)
             cursor.execute(sql, values) #Executar o comando
             conn.commit() #Confirmo o executar
-            return {'status': 'sucesso', 'mensagem': 'Cliente cadastrado com sucesso.'}
+            return {'status': 'sucesso', 'mensagem': 'Maquina cadastrada com sucesso.'}
         except mysql.connector.Error as err:
-            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar cliente:{err}"}
+            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar maquina:{err}"}
         finally:
             cursor.close()
             conn.close()
+
+#--------------FIM - Insert Maquina--------------
+
+
+
+#--------------INICIO - Insert Usuario----------------
+
+def insert_usuario(dados): #Criação da função + parametros
+    conn = connect_banco() #Variavel recebe obj da conexão
+    if conn: #Verifico a variavel
+        try:
+            cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
+            sql = "INSERT INTO usuarios (nome_usuario, email, telefone, cargo) VALUES (%s, %s, %s, %s)" #Criação do sql com parametros por posição
+            values = (dados['nome_usuario'], dados['email'], dados['telefone'], dados['cargo']) #Valores a serem gravados
+            print('Antes insert:', values)
+            cursor.execute(sql, values) #Executar o comando
+            conn.commit() #Confirmo o executar
+            return {'status': 'sucesso', 'mensagem': 'Usuario cadastrado com sucesso.'}
+        except mysql.connector.Error as err:
+            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar usuario:{err}"}
+        finally:
+            cursor.close()
+            conn.close()
+
+#----------------FIM - Insert Usuario----------------
+
+
+
+#----------------INICIO - Insert Sensor----------------
+
+def insert_sensor(dados): #Criação da função + parametros
+    conn = connect_banco() #Variavel recebe obj da conexão
+    if conn: #Verifico a variavel
+        try:
+            cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
+            sql = "INSERT INTO sensores (tipo_sensor, descricao_sensor, data_instalacao_sensor, maquinas_idmaquinas) VALUES (%s, %s, %s, %s)" #Criação do sql com parametros por posição
+            values = (dados['tipo_sensor'], dados['descricao_sensor'], dados['data_instalacao_sensor'], dados['maquinas_idmaquinas']) #Valores a serem gravados
+            print('Antes insert:', values)
+            cursor.execute(sql, values) #Executar o comando
+            conn.commit() #Confirmo o executar
+            return {'status': 'sucesso', 'mensagem': 'Sensor cadastrado com sucesso.'}
+        except mysql.connector.Error as err:
+            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar sensor:{err}"}
+        finally:
+            cursor.close()
+            conn.close()
+
+#----------------FIM - Insert Sensor----------------
+
+
+
+#----------------INICIO - Insert Manutenção----------------
+
+def insert_manutencao(dados): #Criação da função + parametros
+    conn = connect_banco() #Variavel recebe obj da conexão
+    if conn: #Verifico a variavel
+        try:
+            cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
+            sql = "INSERT INTO ordens_manutencao (descricao_problema, tipo_manutencao, status_manutencao, maquinas_idmaquinas, usuarios_idusuario) VALUES (%s, %s, %s, %s, %s)" #Criação do sql com parametros por posição
+            values = (dados['descricao_problema'], dados['tipo_manutencao'], dados['status_manutencao'], dados['maquinas_idmaquinas'], dados['usuarios_idusuario']) #Valores a serem gravados
+            print('Antes insert:', values)
+            cursor.execute(sql, values) #Executar o comando
+            conn.commit() #Confirmo o executar
+            return {'status': 'sucesso', 'mensagem': 'Manutenção registrada com sucesso.'}
+        except mysql.connector.Error as err:
+            return {'status': 'erro', 'mensagem': f"Erro ao registrar manutenção:{err}"}
+        finally:
+            cursor.close()
+            conn.close()
+
+#----------------FIM - Insert Manutenção-----------------
+
+
+
+#----------------INICIO - Insert Trabalho em Ordens----------------
+
+def insert_trabalho_ordens(dados): #Criação da função + parametros
+    conn = connect_banco() #Variavel recebe obj da conexão
+    if conn: #Verifico a variavel
+        try:
+            cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
+            sql = "INSERT INTO trabalho_ordens (descricao_manutencao, status_ordem, tipo_manutencao, data_criacao, data_conclusao, ordens_manutencao_idordens_manutencao, usuarios_idusuario) VALUES (%s, %s, %s, %s, %s, %s, %s)" #Criação do sql com parametros por posição
+            values = (dados['descricao_manutencao'], dados['status_ordem'], dados['tipo_manutencao'], dados['data_criacao'], dados['data_conclusao'], dados['ordens_manutencao_idordens_manutencao'], dados['usuarios_idusuario']) #Valores a serem gravados
+            print('Antes insert:', values)
+            cursor.execute(sql, values) #Executar o comando
+            conn.commit() #Confirmo o executar
+            return {'status': 'sucesso', 'mensagem': 'Trabalho em ordem cadastrado com sucesso.'}
+        except mysql.connector.Error as err:
+            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar trabalho em ordens:{err}"}
+        finally:
+            cursor.close()
+            conn.close()
+
+#----------------FIM - Insert Trabalho em Ordens----------------
+
+
+
+#----------------INICIO - Insert Peça----------------
+
+def insert_peca(dados): #Criação da função + parametros
+    conn = connect_banco() #Variavel recebe obj da conexão
+    if conn: #Verifico a variavel
+        try:
+            cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
+            sql = "INSERT INTO pecas (nome_pecas, codigo_pecas, quntidade) VALUES (%s, %s, %s)" #Criação do sql com parametros por posição
+            values = (dados['nome_pecas'], dados['codigo_pecas'], dados['quntidade']) #Valores a serem gravados
+            print('Antes insert:', values)
+            cursor.execute(sql, values) #Executar o comando
+            conn.commit() #Confirmo o executar
+            return {'status': 'sucesso', 'mensagem': 'Peça cadastrada com sucesso.'}
+        except mysql.connector.Error as err:
+            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar peça:{err}"}
+        finally:
+            cursor.close()
+            conn.close()
+
+#----------------FIM - Insert Peça----------------
