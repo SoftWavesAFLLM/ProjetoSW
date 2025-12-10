@@ -1,4 +1,4 @@
-function loadMenu() {
+export function loadMenu() {
     // Recupera dados do usuário
     let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
     const nomeUsuario =

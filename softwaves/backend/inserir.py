@@ -2,21 +2,6 @@ from conectar import get_connection #Importação componente de conexão
 import mysql.connector
 import base64
 
-def insert_mensagem_contato(nome_contato, email_contato, mensagem):
-    conn = get_connection()
-    cursor = conn.cursor()
-    sql = """
-        INSERT INTO mensagens_contato 
-        (nome_contato, email_contato, mensagem, recebido, enviado_usuario, data_envio)
-        VALUES (%s, %s, %s, %s, %s, %s)
-    """
-    cursor.execute(sql, (nome_contato, email_contato, mensagem, 0, 0))
-    conn.commit()
-    mensagem_id = cursor.lastrowid
-    cursor.close()
-    conn.close()
-    return mensagem_id
-
 def insert_maquina(dados):
     conn = get_connection()
     if not conn:
@@ -166,19 +151,34 @@ def insert_trabalho_ordens(dados): #Criação da função + parametros
 
 def insert_peca(dados): #Criação da função + parametros
     conn = get_connection() #Variavel recebe obj da conexão
-    if conn: #Verifico a variavel
-        try:
-            cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
-            sql = "INSERT INTO pecas (nome_pecas, codigo_pecas, quantidade) VALUES (%s, %s, %s)" #Criação do sql com parametros por posição
-            values = (dados['nome_pecas'], dados['codigo_pecas'], dados['quantidade']) #Valores a serem gravados
-            print('Antes insert:', values)
-            cursor.execute(sql, values) #Executar o comando
-            conn.commit() #Confirmo o executar
-            return {'status': 'sucesso', 'mensagem': 'Peça cadastrada com sucesso.'}
-        except mysql.connector.Error as err:
-            return {'status': 'erro', 'mensagem': f"Erro ao cadastrar peça:{err}"}
-        finally:
-            cursor.close()
+    if not conn: #Verifico a variavel
+        return {'status': 'erro', 'mensagem': 'Erro ao conectar ao banco'}
+    
+    try:
+        cursor = conn.cursor() #Atribuir o cursor(apontamento) a uma variavel
+
+        sql = """
+            INSERT INTO pecas
+            (nome_pecas, codigo_pecas, quantidade, imagem)
+            VALUES (%s, %s, %s, %s)
+        """
+        valores = (
+            dados.get('nome_pecas'),
+            dados.get('codigo_pecas'),
+            dados.get('quantidade'),
+            dados.get('imagem')
+        )
+
+        cursor.execute(sql, valores)
+        conn.commit()
+        return {'status': 'sucesso', 'mensagem': 'Máquina inserida com sucesso'}
+
+    except Exception as e:
+        print("❌ Erro ao inserir máquina:", e)
+        return {'status': 'erro', 'mensagem': str(e)}
+
+    finally:
+        if conn:
             conn.close()
 
 #----------------FIM - Insert Peça----------------

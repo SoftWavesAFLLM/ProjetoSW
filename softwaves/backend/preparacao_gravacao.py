@@ -145,12 +145,14 @@ def preparar_trabalho_ordens_para_gravacao(acao, dados):
 #------INICIO - Preparação para gravação Peças------
 
 def preparar_peca_para_gravacao(acao, dados):
+    imagem_bytes = dados.get('imagem')  # já é bytes do endpoint
     print('Preparação: ', dados)#Conferir se o dado chegou
     if acao == 'criar_peca':
         return {
             'nome_pecas': dados['nome_pecas'],
             'codigo_pecas': dados['codigo_pecas'],
-            'quantidade': dados['quantidade']
+            'quantidade': dados['quantidade'],
+            'imagem': imagem_bytes  # bytes já prontos
         }
     
     elif acao == 'atualizar_peca':
@@ -158,7 +160,8 @@ def preparar_peca_para_gravacao(acao, dados):
             'idpecas': dados['idpecas'],
             'nome_pecas': dados['nome_pecas'],
             'codigo_pecas': dados['codigo_pecas'],
-            'quantidade': dados['quantidade']
+            'quantidade': dados['quantidade'],
+            'imagem': imagem_bytes  # bytes já prontos
         }
 
 #------FIM - Preparação para gravação Peças------

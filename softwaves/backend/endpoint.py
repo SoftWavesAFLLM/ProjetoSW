@@ -16,7 +16,7 @@ import base64
 api_bp = Blueprint('api', __name__)
 
 
-"""
+
 # --------------------INICIO - Rota Sensores Raspiberry--------------------
 
 
@@ -65,7 +65,7 @@ def listar():
 
 
 # --------------------FIM - Rota Sensores Raspiberry--------------------
-"""
+
 
 
 # --------------------INICIO - Rota Login--------------------
@@ -382,11 +382,43 @@ def deletar_trabalho_ordens(idordens):
 # Rota para criação de novas peças
 @api_bp.route('/api/peca', methods=['POST'])
 def criar_peca():
-    dados_ns = request.json
-    print("API pecas: ", dados_ns)  # Conferir se o dado chegou
-    dados = sanitizar(dados_ns)
+    dados = sanitizar(request.json)
+    print("📥 Dados recebidos no endpoint /api/peca:", dados)
+
+    # A imagem virá em dados['imagem'] (completo, incluindo prefixo)
+    imagem_base64 = dados.get('imagem')
+
+    if imagem_base64:
+        print("📷 Base64 recebido (10 chars):", imagem_base64[:10])
+        print("📏 Tamanho total do Base64:", len(imagem_base64))
+
+        # Remove o prefixo "data:image/jpeg;base64,"
+        if ',' in imagem_base64:
+            imagem_base64 = imagem_base64.split(',', 1)[1]
+
+        try:
+            imagem_bytes = base64.b64decode(imagem_base64)
+            dados['imagem'] = imagem_bytes  # salva como bytes reais
+            print("✅ Imagem decodificada com sucesso. Bytes:", len(imagem_bytes))
+
+        except Exception as e:
+            print("❌ Erro ao decodificar a imagem:", e)
+            return jsonify({
+                'status': 'erro',
+                'mensagem': 'Erro ao decodificar a imagem'
+            }), 400
+
+    else:
+        print("⚠️ Nenhuma imagem recebida")
+        dados['imagem'] = None
+
+    # *** PROCESSAMENTO ***
+    print("dados inserir", dados)
     resposta = processar_peca('criar_peca', dados)
-    return jsonify(resposta), 201 if resposta.get('status') == 'sucesso' else 400
+    
+    status_code = 201 if resposta.get('status') == 'sucesso' else 400
+    
+    return jsonify(resposta), status_code
 
 # Rota para listar peças
 

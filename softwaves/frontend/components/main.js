@@ -71,6 +71,7 @@ export function initSPA() {
   // Lida com os botões de "voltar" e "avançar" do navegador
   window.addEventListener('popstate', () => {
     let route = window.location.pathname.substring(1);
+    console.log(route)
     if (route === '') route = 'home';
     loadPage(route + '.html');
   });

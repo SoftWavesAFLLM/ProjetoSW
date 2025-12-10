@@ -179,18 +179,39 @@ def read_trabalho_ordens():
 
 def read_peca():
     conn = get_connection()
-    if conn:
-        try:
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM pecas")
-            resultados = cursor.fetchall() #cursor.fetchone
-            return {'status': 'sucesso', 'dados': resultados}
-        except mysql.connector.Error as err:
-            return {'status': 'erro', 'mensagem': f"Erro ao consultar Peças: {err}"}
-        finally:
-            cursor.close()
-            conn.close()
+    if not conn:
+        return {'status': 'erro', 'mensagem': 'Erro ao conectar ao banco'}
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT idpecas, nome_pecas, codigo_pecas, quantidade, imagem
+            FROM pecas
+        """)
+        resultados = cursor.fetchall() #cursor.fetchone
 
+        pecas = []
+        for row in resultados:
+            imagem_bytes = row[4]
+            imagem_base64 = None
+            if imagem_bytes:
+                imagem_base64 = f"data:image/jpeg;base64,{base64.b64encode(imagem_bytes).decode('utf-8')}"
+
+            pecas.append({
+                'idpecas': row[0],
+                'nome_pecas': row[1],
+                'codigo_pecas': row[2],
+                'quantidade': row[3],
+                'imagem': imagem_base64
+            })
+
+        return {'status': 'sucesso', 'pecas': pecas}
+
+    except mysql.connector.Error as err:
+        return {'status': 'erro', 'mensagem': f'Erro ao consultar peças: {err}'}
+
+    finally:
+        cursor.close()
+        conn.close()
 #----------------FIM - Read Peças----------------
 
 

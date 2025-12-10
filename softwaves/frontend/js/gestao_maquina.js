@@ -3,7 +3,6 @@
 // ========================
 
 export function init() {
-    loadMenu();
     listarMaquinas();
     configurarFiltro();
     configurarFormulario();
