@@ -1,0 +1,42 @@
+/* Estilos gerais - idêntico ao fornecido */
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #707376;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-footer {
+    background-color: #f1f1f1;
+    border-radius: 0 0 8px 8px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.table > thead > tr > th {
+    background-color: #f9c74f; /* Amarelo temático */
+    color: black;
+}
+
+.text-center {
+    text-align: center;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}

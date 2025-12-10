@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background:
+        /* Bordas laranja */
+        linear-gradient(to top, orange 20px, transparent 20px) top,
+        linear-gradient(to bottom, orange 20px, transparent 20px) bottom,
+        /* Imagem de fundo */
+        url('https://img.freepik.com/fotos-gratis/fundo-de-produto-de-parede-preto-escuro-liso_53876-108328.jpg') center/cover no-repeat,
+        /* Cor de fundo base */
+        rgb(14, 14, 14);
+    background-repeat: no-repeat;
+    background-size: 100% 20px, 100% 20px, cover, 100% 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+header {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+main {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1, h2 {
+    font-size: 2rem;
+}
+
+.info p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.right {
+    width: 40%;
+}
+
+.login-box {
+    background-color: orange;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-box h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    text-align: left;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+form input {
+    margin-top: 1px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    padding: 12px;
+}
+
+#button {
+    background: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+p a {
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    display: block;
+    margin-top: 10px;
+}
+
+#logo {
+    max-width: 25%;
+    max-height: 35%;
+    filter: invert(1);
+}
+
+/* Estilo para o checkbox e link */
+.login-box .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+.login-box .remember-me input {
+    margin-right: 5px;
+}
+
+.login-box .forgot-password {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-box .forgot-password:hover {
+    text-decoration: underline;
+}

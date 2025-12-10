@@ -1,0 +1,48 @@
+#head {
+    max-width: 110%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.phone-icon {
+    margin-left: 20px;
+}
+
+.icons img {
+    margin-left: 10px;
+}
+
+#logo2{
+    max-width: 3%;
+    max-height: 3%;
+}
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #707376;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-footer {
+    background-color: #f1f1f1;
+    border-radius: 0 0 8px 8px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.table > thead > tr > th {
+    background-color: #f9c74f;
+    color: black;
+  }
+  

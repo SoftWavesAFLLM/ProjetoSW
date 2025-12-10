@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestão de Sensores</title>
+  <link rel="stylesheet" href="../../css/sensor.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+</head>
+
+<body>
+
+  <div id="menu-container"></div>
+  <div class="container mt-5 pt-5">
+    <div class="mb-4">
+      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Adicionar Sensor
+      </button>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <div class="input-group">
+          <select class="form-select" id="colunaFiltroSensores" style="max-width: 180px;">
+            <option value="tipo_sensor" selected>Tipo</option>
+            <option value="descricao_sensor">Descrição</option>
+            <option value="maquinas_idmaquinas">Máquina Associada</option>
+            <option value="data_instalacao_sensor">Data de Instalação</option>
+          </select>
+
+          <div id="filtroTextoContainer" class="d-flex">
+            <input type="text" class="form-control" id="filtroSensores" placeholder="Digite para filtrar...">
+          </div>
+
+          <div id="filtroDataContainer" class="d-none align-items-center gap-2 ms-2">
+            <label for="filtroDataInicio">De:</label>
+            <input type="date" class="form-control" id="filtroDataInicio">
+            <label for="filtroDataFim">Até:</label>
+            <input type="date" class="form-control" id="filtroDataFim">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-outline-secondary" id="limparFiltroSensores">Limpar Filtro</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Data de instalação</th>
+          <th>Máquina Associada</th>
+          <th>Imagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaSensores"></tbody>
+    </table>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Sensor</h1>
+        </div>
+        <div class="modal-body">
+          <div id="mensagemFormularioSensor" class="alert d-none"></div>
+          <div id="mensagemModalSensor" class="alert d-none" role="alert"></div>
+          <form id="formSensor">
+            <input type="hidden" id="idsensor" />
+            <div class="mb-3">
+              <label class="form-label">Tipo</label>
+              <input type="text" class="form-control" id="tipo_sensor" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descrição</label>
+              <input type="text" class="form-control" id="descricao_sensor" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Data de instalação</label>
+              <input type="date" class="form-control" id="data_instalacao_sensor" />
+            </div>
+            <div class="form-group">
+              <label>Máquina associada</label>
+              <select name="maquinas_idmaquinas" id="selectMaquina" required>
+                <option value="">Carregando maquinas...</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="sensorImagem" class="form-label">Imagem do Sensor</label>
+              <input type="file" id="imagem" class="form-control" accept="image/*">
+            </div>
+            <div class="modal-footer px-0">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalConfirmarExclusaoSensor" tabindex="-1" aria-labelledby="modalConfirmarExclusaoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalConfirmarExclusaoLabel">Confirmar Exclusão</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="corpoModalExclusaoSensor">
+            Tem certeza de que deseja excluir este sensor?
+          </div>
+          <div id="mensagemModalExclusaoSensor" class="alert d-none mt-2" role="alert"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btnConfirmarExclusaoSensor">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de Visualização da Imagem -->
+  <div class="modal fade" id="modalImagem">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagem do Sensor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img id="imagemModal" src="" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+  <script src="../../js/gestao_sensores.js"></script>
+  
+  <script src="../../components/menu.js"></script>
+
+  <script>
+    // 🔹 Carregar locais/modalidades no select
+    async function carregarMaquina() {
+      const select = document.getElementById("selectMaquina");
+      try {
+        const payload = {
+          table: "maquinas",
+          columns: "idmaquinas, nome_maquina",
+          database: "softwavesafllm"
+        };
+
+        const response = await fetch("http://localhost:5000/api/generic_select", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        select.innerHTML = '<option value="">Selecione a maquina</option>';
+
+        if (data.length === 0) {
+          select.innerHTML = '<option value="">Nenhuma maquina encontrado</option>';
+          return;
+        }
+
+        data.forEach(maquina => {
+          const option = document.createElement("option");
+          option.value = maquina.idmaquinas;
+          option.textContent = maquina.nome_maquina;
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar maquina:", error);
+        select.innerHTML = '<option value="">Erro ao carregar</option>';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", carregarMaquina);
+  </script>
+</body>
+
+</html>

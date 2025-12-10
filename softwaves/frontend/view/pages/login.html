@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../../css/login.css">
+</head>
+
+<body>
+    <main>
+        <section class="left">
+            <img src="../../imagens/logo.png" alt="Logo Softwaves" id="logo">
+            <h1>Bem-vindo à</h1>
+            <h2>Softwaves</h2>
+            <div class="info">
+                <p>📞 Telefone <br> (19) 99336-3939</p>
+                <p>📧 E-Mail <br> softwaves58@gmail.com</p>
+                <p>🌐 Site <br> www.softwaves.com</p>
+                <p>📍 Endereço <br> Av. Paulo Afonso P. Ulbricht, Itapira</p>
+            </div>
+        </section>
+
+        <section class="right">
+            <div class="login-box">
+                <h3>LOGIN</h3>
+                <form id="loginForm">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+                    <div class="options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            Lembrar de mim
+                        </label>
+                        <a href="../../view/pages/senha.html" class="forgot-password">Esqueceu sua senha?</a>
+                    </div>
+
+                    <button type="submit" id="button">LOGIN</button>
+                    <p id="mensagem" class="mensagem"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="../../js/login.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,88 @@
+#head {
+    max-width: 110%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.phone-icon {
+    margin-left: 20px;
+}
+
+.icons img {
+    margin-left: 10px;
+}
+
+#tel {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+#logo2{
+    max-width: 3%;
+    max-height: 3%;
+}
+
+
+/* HEADER */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    padding: 10px 20px;
+    color: white;
+}
+
+/* LOGO + NOME DO USUÁRIO */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 45px;
+    width: auto;
+    border-radius: 6px;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* LINKS */
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar-links a:hover {
+    opacity: 0.7;
+}
+
+/* BOTÃO SAIR */
+.logout-btn {
+    background: #c40000;
+    border: none;
+    padding: 8px 14px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.logout-btn:hover {
+    background: #ff0000;
+}

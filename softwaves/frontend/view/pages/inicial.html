@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftWaves - Inicial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ---- Configurações Gerais ---- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --cor-branca: #FFFFFF;
+            --cor-texto-principal: #333333;
+            --cor-texto-secundario: #555555;
+            --cor-laranja-onddev: #FFB300;
+            --cor-laranja-degrade-fim: #FFD54F;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--cor-branca);
+        }
+
+        /* ---- Container Principal (Tela Cheia) ---- */
+        .container {
+            display: flex;
+            background-color: var(--cor-branca);
+            width: 100vw;
+            min-height: 100vh;
+            overflow: hidden;
+            margin-top: 70px; /* Para o menu não ficar sobreposto */
+        }
+
+        /* ---- Seção da Imagem Lateral ---- */
+        .image-section {
+            flex: 1;
+            background-image: url('https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Degrade laranja na imagem */
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 179, 0, 0.8), rgba(255, 179, 0, 0.4));
+            z-index: 2;
+        }
+
+        /* ---- Seção de Conteúdo ---- */
+        .content-section {
+            flex: 1.5;
+            padding: 60px 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            position: relative;
+        }
+
+        /* ---- Logo ---- */
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .logo svg {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            fill: var(--cor-laranja-onddev);
+        }
+
+        .logo span {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--cor-texto-principal);
+        }
+
+        /* ---- Títulos ---- */
+        h1 {
+            font-size: 3.5em;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            color: var(--cor-texto-principal);
+            font-weight: 700;
+        }
+
+        .orange-line {
+            width: 150px;
+            height: 8px;
+            background: linear-gradient(to right, var(--cor-laranja-onddev), var(--cor-laranja-degrade-fim), transparent);
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: var(--cor-texto-secundario);
+            line-height: 1.6;
+        }
+
+        /* ---- Responsividade ---- */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-section {
+                min-height: 30vh;
+            }
+
+            .content-section {
+                padding: 40px 30px;
+                text-align: center;
+            }
+
+            .logo {
+                justify-content: center;
+            }
+
+            .orange-line {
+                margin: 20px auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+body>
+
+    <!-- AQUI O MENU SERÁ RENDERIZADO -->
+    <div id="menu-container"></div>
+
+    <!-- CONTEÚDO DA PÁGINA -->
+    <div class="container">
+        <div class="image-section"></div>
+
+        <div class="content-section">
+            <div class="logo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2.5,13.5L10,21L21.5,9.5L19,7L10,16L5,11L2.5,13.5Z" transform="translate(0 -5)"></path>
+                    <path d="M2.5,13.5L10,21L21.5,9.5L19,7L10,16L5,11L2.5,13.5Z" transform="translate(-1 2)"></path>
+                </svg>
+                <span id="user-greeting">Olá Usuário(a)</span>
+            </div>
+
+            <h1>SoftWaves</h1>
+
+            <div class="orange-line"></div>
+
+            <p class="subtitle">
+                "Eficiência, confiança e inovação na manutenção de máquinas industriais."
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- CARREGA O MENU -->
+    <script src="../../components/menu.js"></script>
+    <script src="../../css/header.css"></script>
+
+    <!-- Script para inserir o nome do usuário -->
+    <script>
+        // Recupera os dados do usuário logado do localStorage
+        const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
+
+        // Tenta identificar o campo correto do nome
+        const nomeUsuario = 
+            usuarioLogado.nome || 
+            usuarioLogado.nome_funcionario || 
+            usuarioLogado.nome_usuario || 
+            usuarioLogado.user || 
+            usuarioLogado.username || 
+            "Usuário(a)";
+
+        // Atualiza o texto do span
+        document.getElementById("user-greeting").textContent = `Olá, ${nomeUsuario}`;
+    </script>
+
+</body>
+</html>
